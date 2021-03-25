@@ -48,23 +48,38 @@ public class ConverterSvcTest {
 
     ConverterSvc converterSvc = new ConverterSvc(client);
     var actual = converterSvc.getExchangeRate("USD");
-    double expected = 11486.5341;
+
+    float expected = (float)11486.5341;
     Assert.assertEquals(actual, expected);
   }
 
   @Test(enabled=false)
-  public void getExchangeRateGBP() {
-    ConverterSvc converterSvc = new ConverterSvc();
+  public void getExchangeRateGBP() throws IOException {
+    //ConverterSvc converterSvc = new ConverterSvc();
+    Mockito.when(statusLine.getStatusCode()).thenReturn(200);
+    Mockito.when(response.getStatusLine()).thenReturn(statusLine);
+    Mockito.when(response.getEntity()).thenReturn(entity);
+    Mockito.when(entity.getContent()).thenReturn(stream);
+    Mockito.when(client.execute(Mockito.any(HttpGet.class))).thenReturn(response);
+
+    ConverterSvc converterSvc = new ConverterSvc(client);
     var actual = converterSvc.getExchangeRate("GBP");
-    double expected = 200;
+    float expected = (float)8900.8693;
     Assert.assertEquals(actual, expected);
   }
 
   @Test(enabled=false)
-  public void getExchangeRateEUR() {
-    ConverterSvc converterSvc = new ConverterSvc();
+  public void getExchangeRateEUR() throws IOException {
+    //ConverterSvc converterSvc = new ConverterSvc();
+    Mockito.when(statusLine.getStatusCode()).thenReturn(200);
+    Mockito.when(response.getStatusLine()).thenReturn(statusLine);
+    Mockito.when(response.getEntity()).thenReturn(entity);
+    Mockito.when(entity.getContent()).thenReturn(stream);
+    Mockito.when(client.execute(Mockito.any(HttpGet.class))).thenReturn(response);
+
+    ConverterSvc converterSvc = new ConverterSvc(client);
     var actual = converterSvc.getExchangeRate("EUR");
-    double expected = 300;
+    float expected = (float)9809.3278;
     Assert.assertEquals(actual, expected);
   }
 

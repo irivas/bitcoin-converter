@@ -35,7 +35,7 @@ public class ConverterSvc {
   }
 
   public double getExchangeRate(String currency) {
-    double rate = 0;
+    float rate = 0;
 
     try {
       CloseableHttpResponse response = this.httpclient.execute(httpget);
@@ -44,14 +44,9 @@ public class ConverterSvc {
 
       @SuppressWarnings("deprecation")
       JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-      String n = jsonObject.get("bpi").getAsJsonObject().get(currency).getAsJsonObject().get("rate").getAsString();
-      NumberFormat nf = NumberFormat.getInstance();
-      rate = nf.parse(n).doubleValue();
-      System.out.println("El rate: ");
-      System.out.println(rate);
-
-
-    } catch (Exception ex) {
+      rate = jsonObject.get("bpi").getAsJsonObject().get(currency).getAsJsonObject().get("rate_float").getAsFloat();
+    }
+    catch (Exception ex) {
       rate = -1;
     }
     return rate;
