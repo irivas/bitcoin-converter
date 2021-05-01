@@ -53,7 +53,6 @@ public class ConverterSvcTest {
     Assert.assertEquals(actual, expected);
   }
 
-  // no se por que falla esto.
   @Test(enabled=false)
   public void getExchangeRateGBP() throws IOException {
     //ConverterSvc converterSvc = new ConverterSvc();
