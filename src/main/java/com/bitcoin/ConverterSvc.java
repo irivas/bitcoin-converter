@@ -48,6 +48,7 @@ public class ConverterSvc {
     }
     catch (Exception ex) {
       rate = -1;
+      System.out.println(ex);
     }
     return rate;
   }
