@@ -71,11 +71,11 @@ public class ConverterSvcTest {
     Assert.assertEquals(actual, expected);
   }
 
-  @Test(enabled=false)
+  @Test
   public void convertBitcoins() {
-    ConverterSvc converterSvc = new ConverterSvc();
+    ConverterSvc converterSvc = new ConverterSvc(client);
     var actual = converterSvc.convertBitcoins("USD", 1);
-    double expected = 100;
+    double expected = 11486.5341796875;
     Assert.assertEquals(actual, expected);
   }
 }
