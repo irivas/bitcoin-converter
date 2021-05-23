@@ -34,7 +34,13 @@ public class ConverterSvc {
     this.httpclient = httpClient;
   }
 
-  public double getExchangeRate(String currency) {
+  public enum Currency {
+    USD,
+    GBP,
+    EUR
+  }
+
+  public double getExchangeRate(Currency currency) {
     float rate = 0;
 
     try {
@@ -44,7 +50,7 @@ public class ConverterSvc {
 
       @SuppressWarnings("deprecation")
       JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-      rate = jsonObject.get("bpi").getAsJsonObject().get(currency).getAsJsonObject().get("rate_float").getAsFloat();
+      rate = jsonObject.get("bpi").getAsJsonObject().get(currency.toString()).getAsJsonObject().get("rate_float").getAsFloat();
     }
     catch (Exception ex) {
       rate = -1;
@@ -53,11 +59,11 @@ public class ConverterSvc {
     return rate;
   }
 
-  public double convertBitcoins(String currency, int coins) {
+  public double convertBitcoins(Currency currency, int coins) {
     //return getExchangeRate(currency) * coins;
     double dollars = 0;
     var exchangeRate = getExchangeRate(currency);
-    dollars = exchangeRate * coins;
+    dollars = ((exchangeRate >= 0) ? exchangeRate * coins : -1);
 
     return dollars;
   }
